@@ -2,10 +2,9 @@
 name: Publish to PyPI
 
 on:
+  # Manual fallback only: release-please.yml already publishes on release.
+  # (A tag trigger here would double-publish every release.)
   workflow_dispatch: {}
-  push:
-    tags:
-      - "v*"
 
 permissions:
   contents: read
