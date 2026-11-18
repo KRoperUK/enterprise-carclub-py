@@ -163,6 +163,32 @@ async def test_stack_timeslots_shape() -> None:
     assert "timeslots/53237" in args[1]
 
 
+async def test_get_reservation_uses_path_id() -> None:
+    """Reservation details come from the path-addressed endpoint."""
+    client, session = _client({"reservation": {"id": "14566233"}})
+    data = await client.async_get_reservation("14566233")
+    assert data["reservation"]["id"] == "14566233"
+    args, _ = session.request.call_args
+    assert args[1].endswith("api/autovera/reservations/14566233")
+
+
+async def test_stack_availability_and_branch_and_terms() -> None:
+    """Read-only reference endpoints pass through decoded JSON."""
+    client, session = _client({"ok": True})
+    assert await client.async_get_stack_availability("53237", start_time=1, end_time=2) == {"ok": True}
+    args, kwargs = session.request.call_args
+    assert "vehicleStackAvailability/53237" in args[1]
+    assert kwargs["params"]["startTime"] == 1
+
+    client2, session2 = _client({"branch": {}})
+    assert await client2.async_get_branch_details("ps1") == {"branch": {}}
+    _, kwargs2 = session2.request.call_args
+    assert kwargs2["params"] == {"peopleSoftId": "ps1"}
+
+    client3, _ = _client({"terms": []})
+    assert await client3.async_get_contract_terms() == {"terms": []}
+
+
 async def test_make_reservation_rejects_bad_shape() -> None:
     """A missing reservation object raises ClientError."""
     client, _ = _client({"status": True})

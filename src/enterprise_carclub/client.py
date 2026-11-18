@@ -253,6 +253,25 @@ class Client:
             params={"stackId": stack_id, "startTime": start_time, "endTime": end_time},
         )
 
+    async def async_get_reservation(self, reservation_id: str) -> dict[str, Any]:
+        """Full details for one reservation; raises NoReservationError when unknown."""
+        return await self.async_get_json(f"api/autovera/reservations/{reservation_id}")
+
+    async def async_get_stack_availability(self, stack_id: str, *, start_time: int, end_time: int) -> dict[str, Any]:
+        """Availability summary for one stack in an epoch-seconds window."""
+        return await self.async_get_json(
+            f"api/autovera/vehicleStackAvailability/{stack_id}",
+            params={"stackId": stack_id, "startTime": start_time, "endTime": end_time},
+        )
+
+    async def async_get_branch_details(self, people_soft_id: str) -> dict[str, Any]:
+        """Branch details for a peopleSoftId (as seen on reservations)."""
+        return await self.async_get_json("api/branch", params={"peopleSoftId": people_soft_id})
+
+    async def async_get_contract_terms(self) -> dict[str, Any]:
+        """Contract terms and job items for the current program."""
+        return await self.async_get_json("api/autovera/contractTerms")
+
     async def async_get_stack_timeslots(self, stack_id: str, *, start_time: int, end_time: int) -> list[dict[str, Any]]:
         """Availability timeslots for one stack in an epoch-seconds window."""
         data = await self._request(
