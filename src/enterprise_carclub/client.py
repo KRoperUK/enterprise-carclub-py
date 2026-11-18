@@ -253,6 +253,23 @@ class Client:
             params={"stackId": stack_id, "startTime": start_time, "endTime": end_time},
         )
 
+    async def async_get_stack_timeslots(self, stack_id: str, *, start_time: int, end_time: int) -> list[dict[str, Any]]:
+        """Availability timeslots for one stack in an epoch-seconds window."""
+        data = await self._request(
+            "GET",
+            f"api/autovera/vehicleStackAvailability/timeslots/{stack_id}",
+            params={"stackId": stack_id, "startTime": start_time, "endTime": end_time},
+        )
+        if isinstance(data, dict):
+            slots = data.get("timeslots")
+        elif isinstance(data, list):
+            slots = data
+        else:
+            slots = None
+        if not isinstance(slots, list):
+            raise ClientError("Unexpected timeslots response")
+        return [item for item in slots if isinstance(item, dict)]
+
     async def async_make_reservation(
         self,
         stack_id: str,

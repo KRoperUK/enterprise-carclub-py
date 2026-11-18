@@ -152,6 +152,17 @@ async def test_make_reservation_posts_expected_body() -> None:
     }
 
 
+async def test_stack_timeslots_shape() -> None:
+    """Timeslot lookup returns the slot list."""
+    body = {"timeslots": [{"time": 1795026600, "available": True}]}
+    client, session = _client(body)
+    slots = await client.async_get_stack_timeslots("53237", start_time=1, end_time=2)
+    assert slots == [{"time": 1795026600, "available": True}]
+    args, _ = session.request.call_args
+    assert args[0] == "GET"
+    assert "timeslots/53237" in args[1]
+
+
 async def test_make_reservation_rejects_bad_shape() -> None:
     """A missing reservation object raises ClientError."""
     client, _ = _client({"status": True})
