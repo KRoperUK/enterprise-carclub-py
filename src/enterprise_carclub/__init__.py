@@ -10,6 +10,14 @@ from .client import (
     LoginResult,
 )
 from .exceptions import AuthError, ClientError, NoReservationError
+from .vehicles import (
+    amenities_of,
+    fuel_of,
+    seats_of,
+    size_class,
+    summarize_stack,
+    transmission_of,
+)
 
 __all__ = [
     "ANDROID_API_KEY",
@@ -22,4 +30,10 @@ __all__ = [
     "ClientError",
     "LoginResult",
     "NoReservationError",
+    "amenities_of",
+    "fuel_of",
+    "seats_of",
+    "size_class",
+    "summarize_stack",
+    "transmission_of",
 ]
