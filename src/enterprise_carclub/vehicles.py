@@ -114,6 +114,8 @@ def summarize_stack(entry: dict[str, Any]) -> dict[str, Any]:
         "latitude": stack_dict.get("latitude"),
         "longitude": stack_dict.get("longitude"),
         "make_model": make_model_str,
+        "image_url": stack_dict.get("image_url"),
+        "thumb_url": stack_dict.get("thumb_url"),
         "plate": details_dict.get("plate"),
         "year": details_dict.get("year"),
         "seats": seats,

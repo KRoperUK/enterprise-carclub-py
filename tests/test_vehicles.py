@@ -37,6 +37,8 @@ TRANSIT = {
     "latitude": 53.48491,
     "longitude": -2.227774,
     "make_model": "Ford Transit Custom EV",
+    "image_url": "https://booking.citycarclub.co.uk//images/client_images/vehicle_type_1771252638.png",
+    "thumb_url": "https://booking.citycarclub.co.uk//images/client_images/vehicle_thumb_1771252638.png",
     "vehicle_details": {
         "year": 0,
         "color": "White",
@@ -86,6 +88,7 @@ def test_summarize_stack() -> None:
     }
     summary = summarize_stack(entry)
     assert summary["stack_id"] == "54978"
+    assert summary["thumb_url"] == TRANSIT.get("thumb_url")
     assert summary["size_class"] == "van"
     assert summary["fuel"] == "electric"
     assert summary["distance_m"] == 1221.6
