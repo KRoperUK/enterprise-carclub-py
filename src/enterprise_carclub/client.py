@@ -253,23 +253,6 @@ class Client:
             params={"stackId": stack_id, "startTime": start_time, "endTime": end_time},
         )
 
-    async def async_get_stack_timeslots(self, stack_id: str, *, start_time: int, end_time: int) -> list[dict[str, Any]]:
-        """Availability timeslots for one stack in an epoch-seconds window."""
-        data = await self._request(
-            "GET",
-            f"api/autovera/vehicleStackAvailability/timeslots/{stack_id}",
-            params={"stackId": stack_id, "startTime": start_time, "endTime": end_time},
-        )
-        if isinstance(data, dict):
-            slots = data.get("timeslots")
-        elif isinstance(data, list):
-            slots = data
-        else:
-            slots = None
-        if not isinstance(slots, list):
-            raise ClientError("Unexpected timeslots response")
-        return [item for item in slots if isinstance(item, dict)]
-
     async def async_get_reservation(self, reservation_id: str) -> dict[str, Any]:
         """Full details for one reservation; raises NoReservationError when unknown."""
         return await self.async_get_json(f"api/autovera/reservations/{reservation_id}")
@@ -288,6 +271,23 @@ class Client:
     async def async_get_contract_terms(self) -> dict[str, Any]:
         """Contract terms and job items for the current program."""
         return await self.async_get_json("api/autovera/contractTerms")
+
+    async def async_get_stack_timeslots(self, stack_id: str, *, start_time: int, end_time: int) -> list[dict[str, Any]]:
+        """Availability timeslots for one stack in an epoch-seconds window."""
+        data = await self._request(
+            "GET",
+            f"api/autovera/vehicleStackAvailability/timeslots/{stack_id}",
+            params={"stackId": stack_id, "startTime": start_time, "endTime": end_time},
+        )
+        if isinstance(data, dict):
+            slots = data.get("timeslots")
+        elif isinstance(data, list):
+            slots = data
+        else:
+            slots = None
+        if not isinstance(slots, list):
+            raise ClientError("Unexpected timeslots response")
+        return [item for item in slots if isinstance(item, dict)]
 
     async def async_make_reservation(
         self,
