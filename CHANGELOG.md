@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.4.0](https://github.com/KRoperUK/enterprise-carclub-py/compare/v0.3.0...v0.4.0) (2026-11-18)
+
+
+### Features
+
+* per-stack timeslot availability lookup ([fbcbe65](https://github.com/KRoperUK/enterprise-carclub-py/commit/fbcbe65e6a0bf384b7222decf38dc8d17e01ba85))
+* per-stack timeslot availability lookup ([#4](https://github.com/KRoperUK/enterprise-carclub-py/issues/4)) ([ba84220](https://github.com/KRoperUK/enterprise-carclub-py/commit/ba84220f17a66eaf0a5538fed32eec360f7a331a))
+* reservation, stack, branch and contract lookups ([2966608](https://github.com/KRoperUK/enterprise-carclub-py/commit/2966608373ebcd1290b819889b0bfc29773c351e))
+* reservation, stack, branch and contract lookups ([e014a75](https://github.com/KRoperUK/enterprise-carclub-py/commit/e014a75f981665308b5a9d7b6b4717fc29e01c3f))
+
+
+### Documentation
+
+* refresh README for implemented API ([3e18860](https://github.com/KRoperUK/enterprise-carclub-py/commit/3e188607469be8c6bf6f99df2f045a864964d188))
+
 ## [0.3.0](https://github.com/KRoperUK/enterprise-carclub-py/compare/v0.2.0...v0.3.0) (2026-11-18)
 
 
