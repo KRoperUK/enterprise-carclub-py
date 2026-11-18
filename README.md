@@ -33,16 +33,36 @@ pip install enterprise-carclub
 ## Use
 
 ```python
-import aiohttp
-from enterprise_carclub import Client, DEFAULT_BASE_URL
+import asyncio
+import time
 
-async with aiohttp.ClientSession() as session:
-    client = Client(session, base_url=DEFAULT_BASE_URL)
-    data = await client.async_get_json("api/autovera/reservations/current")
+import aiohttp
+from enterprise_carclub import Client
+
+async def main() -> None:
+    async with aiohttp.ClientSession() as session:
+        client = Client(session)  # defaults to the production base URL
+        result = await client.async_login("member-id", "password")
+        print(result.member_id, result.market_id)
+        futures = await client.async_get_current_and_future()
+        print(len(futures), "upcoming reservations")
+        start = (int(time.time()) // 900 + 8) * 900
+        stacks = await client.async_search_stacks(
+            latitude=53.47, longitude=-2.28,
+            start_time=start, end_time=start + 4 * 3600, market_id=8,
+        )
+        print(len(stacks), "stacks nearby")
+
+asyncio.run(main())
 ```
 
-Auth (login + token) helpers land with the first `feat:` commit; the skeleton
-already maps HTTP 401/403 to `AuthError` and other failures to `ClientError`.
+Implemented against the live API: `login()` (member ID + password →
+`Ehi-Auth-Token`), reservations (current, by id, future list), vehicle search
+with 15-minute timeslots, batch + single trip estimates, per-stack future
+timeslots, booking creation, driver messages, filters, client configuration,
+branch details and contract terms. HTTP 401/403 and `INVALID_CREDENTIALS`
+map to `AuthError`; code `8001` ("No Such Reservation") maps to
+`NoReservationError`; everything else to `ClientError`.
 
 ## Develop
 
