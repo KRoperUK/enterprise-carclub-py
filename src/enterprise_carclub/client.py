@@ -22,9 +22,9 @@ _LOGGER = logging.getLogger(__name__)
 DEFAULT_BASE_URL = "https://www-carshare-msi.ecs.ehiaws.com/carshare-msi"
 
 #: Static app key sent as ``Ehi-API-Key`` by the Android app.
-ANDROID_API_KEY = "lJYwDM2diKuwPPnCK+tq4U84xgNtHuwCmoYs19RBF/k"
+ANDROID_API_KEY = "YO3UjQ1ZtJl8z2EL6Qi5WISdQW6nDLmlBVMkqos99tQ"
 APP_PLATFORM = "Android"
-APP_VERSION = "v3.29.0.2296-release"
+APP_VERSION = "v3.30.0.2357-release"
 
 #: ``Ehi-CSMA-Instance`` for United Kingdom / Enterprise Car Club
 #: (``countryId:brandId`` from the app's bundled ``AVInstanceInfo.json``).
