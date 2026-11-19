@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/KRoperUK/enterprise-carclub-py/compare/v0.4.0...v0.5.0) (2026-11-19)
+
+
+### Features
+
+* vehicle preview photo URLs in summaries ([#7](https://github.com/KRoperUK/enterprise-carclub-py/issues/7)) ([1254fdf](https://github.com/KRoperUK/enterprise-carclub-py/commit/1254fdf62c0f7ee59109a947399e6cd0dd75b152))
+
 ## [0.4.0](https://github.com/KRoperUK/enterprise-carclub-py/compare/v0.3.0...v0.4.0) (2026-11-18)
 
 
